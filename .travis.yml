@@ -1,0 +1,15 @@
+language: ruby
+sudo: false
+rvm:
+  - 2.7
+before_install:
+  - cp -p Gemfile.lock Gemfile.lock.org
+script:
+   - |
+    if grep '^BUNDLED WITH' Gemfile.lock; then
+      false
+    else
+      true
+    fi
+  - diff Gemfile.lock.org Gemfile.lock
+  - bundle exec rake test
